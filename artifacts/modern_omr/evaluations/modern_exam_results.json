@@ -1,0 +1,168 @@
+{
+  "detected_answers": {
+    "Q01": [
+      "D"
+    ],
+    "Q02": [
+      "B"
+    ],
+    "Q03": [
+      "C"
+    ],
+    "Q04": [
+      "B"
+    ],
+    "Q05": [
+      "D"
+    ],
+    "Q06": [
+      "C"
+    ],
+    "Q07": [
+      "B"
+    ],
+    "Q08": [
+      "D"
+    ],
+    "Q09": [
+      "C"
+    ],
+    "Q10": [
+      "D"
+    ],
+    "Q11": [
+      "B"
+    ],
+    "Q12": [
+      "C"
+    ],
+    "Q13": [
+      "C"
+    ],
+    "Q14": [
+      "A"
+    ],
+    "Q15": [
+      "B"
+    ],
+    "Q16": [
+      "D"
+    ],
+    "Q17": [
+      "B"
+    ],
+    "Q18": [
+      "B"
+    ],
+    "Q19": [
+      "D"
+    ],
+    "Q20": [
+      "A"
+    ]
+  },
+  "raw": {
+    "Q01:A": false,
+    "Q01:B": false,
+    "Q01:C": false,
+    "Q01:D": true,
+    "Q02:A": false,
+    "Q02:B": true,
+    "Q02:C": false,
+    "Q02:D": false,
+    "Q03:A": false,
+    "Q03:B": false,
+    "Q03:C": true,
+    "Q03:D": false,
+    "Q04:A": false,
+    "Q04:B": true,
+    "Q04:C": false,
+    "Q04:D": false,
+    "Q05:A": false,
+    "Q05:B": false,
+    "Q05:C": false,
+    "Q05:D": true,
+    "Q06:A": false,
+    "Q06:B": false,
+    "Q06:C": true,
+    "Q06:D": false,
+    "Q07:A": false,
+    "Q07:B": true,
+    "Q07:C": false,
+    "Q07:D": false,
+    "Q08:A": false,
+    "Q08:B": false,
+    "Q08:C": false,
+    "Q08:D": true,
+    "Q09:A": false,
+    "Q09:B": false,
+    "Q09:C": true,
+    "Q09:D": false,
+    "Q10:A": false,
+    "Q10:B": false,
+    "Q10:C": false,
+    "Q10:D": true,
+    "Q11:A": false,
+    "Q11:B": true,
+    "Q11:C": false,
+    "Q11:D": false,
+    "Q12:A": false,
+    "Q12:B": false,
+    "Q12:C": true,
+    "Q12:D": false,
+    "Q13:A": false,
+    "Q13:B": false,
+    "Q13:C": true,
+    "Q13:D": false,
+    "Q14:A": true,
+    "Q14:B": false,
+    "Q14:C": false,
+    "Q14:D": false,
+    "Q15:A": false,
+    "Q15:B": true,
+    "Q15:C": false,
+    "Q15:D": false,
+    "Q16:A": false,
+    "Q16:B": false,
+    "Q16:C": false,
+    "Q16:D": true,
+    "Q17:A": false,
+    "Q17:B": true,
+    "Q17:C": false,
+    "Q17:D": false,
+    "Q18:A": false,
+    "Q18:B": true,
+    "Q18:C": false,
+    "Q18:D": false,
+    "Q19:A": false,
+    "Q19:B": false,
+    "Q19:C": false,
+    "Q19:D": true,
+    "Q20:A": true,
+    "Q20:B": false,
+    "Q20:C": false,
+    "Q20:D": false
+  },
+  "selected_answers": {
+    "Q01": "D",
+    "Q02": "B",
+    "Q03": "C",
+    "Q04": "B",
+    "Q05": "D",
+    "Q06": "C",
+    "Q07": "B",
+    "Q08": "D",
+    "Q09": "C",
+    "Q10": "D",
+    "Q11": "B",
+    "Q12": "C",
+    "Q13": "C",
+    "Q14": "A",
+    "Q15": "B",
+    "Q16": "D",
+    "Q17": "B",
+    "Q18": "B",
+    "Q19": "D",
+    "Q20": "A"
+  }
+}

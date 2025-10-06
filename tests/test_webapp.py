@@ -79,5 +79,6 @@ def test_demo_endpoint_generates_bundle(tmp_path: Path) -> None:
 
     assert response.status_code == 200
     assert b"Demo bundle ready" in response.data
+    assert b"%5C" not in response.data
     artefacts = list(tmp_path.rglob("modern_exam_template.json"))
     assert artefacts, "expected demo artefacts to be written"

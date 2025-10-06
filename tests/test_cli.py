@@ -4,7 +4,7 @@ from pathlib import Path
 import pytest
 from PIL import Image, ImageDraw
 
-from omr import cli, template
+from omr import builder, cli, template
 
 
 def _write_template(path: Path) -> None:
@@ -39,6 +39,14 @@ def test_cli_build_command(tmp_path):
     exit_code = cli.main(["build", str(template_path), str(output_path), "--dpi", "150"])
     assert exit_code == 0
     assert output_path.exists()
+
+    payload = output_path.read_bytes()
+    assert payload.startswith(b"\x89PNG\r\n\x1a\n")
+
+    reopened = Image.open(str(output_path))
+    template_obj = template.Template.load(str(template_path))
+    expected_size = builder.sheet_dimensions(template_obj, dpi=150)
+    assert reopened.size == expected_size
 
 
 def test_cli_grade_command(tmp_path, capsys):

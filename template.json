@@ -1,0 +1,27 @@
+{
+  "name": "Sample Multiple Choice",
+  "page_width_mm": 210,
+  "page_height_mm": 297,
+  "bubbles": [
+    {"question_id": "Q1", "option_id": "A", "center_x_mm": 40, "center_y_mm": 60, "radius_mm": 5},
+    {"question_id": "Q1", "option_id": "B", "center_x_mm": 70, "center_y_mm": 60, "radius_mm": 5},
+    {"question_id": "Q1", "option_id": "C", "center_x_mm": 100, "center_y_mm": 60, "radius_mm": 5},
+    {"question_id": "Q1", "option_id": "D", "center_x_mm": 130, "center_y_mm": 60, "radius_mm": 5},
+    {"question_id": "Q2", "option_id": "A", "center_x_mm": 40, "center_y_mm": 80, "radius_mm": 5},
+    {"question_id": "Q2", "option_id": "B", "center_x_mm": 70, "center_y_mm": 80, "radius_mm": 5},
+    {"question_id": "Q2", "option_id": "C", "center_x_mm": 100, "center_y_mm": 80, "radius_mm": 5},
+    {"question_id": "Q2", "option_id": "D", "center_x_mm": 130, "center_y_mm": 80, "radius_mm": 5},
+    {"question_id": "Q3", "option_id": "A", "center_x_mm": 40, "center_y_mm": 100, "radius_mm": 5},
+    {"question_id": "Q3", "option_id": "B", "center_x_mm": 70, "center_y_mm": 100, "radius_mm": 5},
+    {"question_id": "Q3", "option_id": "C", "center_x_mm": 100, "center_y_mm": 100, "radius_mm": 5},
+    {"question_id": "Q3", "option_id": "D", "center_x_mm": 130, "center_y_mm": 100, "radius_mm": 5},
+    {"question_id": "Q4", "option_id": "A", "center_x_mm": 40, "center_y_mm": 120, "radius_mm": 5},
+    {"question_id": "Q4", "option_id": "B", "center_x_mm": 70, "center_y_mm": 120, "radius_mm": 5},
+    {"question_id": "Q4", "option_id": "C", "center_x_mm": 100, "center_y_mm": 120, "radius_mm": 5},
+    {"question_id": "Q4", "option_id": "D", "center_x_mm": 130, "center_y_mm": 120, "radius_mm": 5},
+    {"question_id": "Q5", "option_id": "A", "center_x_mm": 40, "center_y_mm": 140, "radius_mm": 5},
+    {"question_id": "Q5", "option_id": "B", "center_x_mm": 70, "center_y_mm": 140, "radius_mm": 5},
+    {"question_id": "Q5", "option_id": "C", "center_x_mm": 100, "center_y_mm": 140, "radius_mm": 5},
+    {"question_id": "Q5", "option_id": "D", "center_x_mm": 130, "center_y_mm": 140, "radius_mm": 5}
+  ]
+}

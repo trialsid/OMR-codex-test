@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "omr-codex-test"
+version = "0.1.0"
+description = "Utilities for building and grading simple OMR sheets"
+readme = "README.md"
+authors = [{name = "OMR Maintainers"}]
+requires-python = ">=3.10"
+dependencies = [
+  "Pillow",
+  "numpy",
+  "opencv-python",
+  "click",
+]
+
+[project.scripts]
+omr = "omr.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["omr"]
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-q"
+testpaths = ["tests"]

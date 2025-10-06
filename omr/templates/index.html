@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+  <section>
+    <h2>Welcome</h2>
+    <p>
+      Use this dashboard to render printable OMR sheets, grade scanned responses,
+      and generate a complete demonstration bundle without needing the command line.
+    </p>
+  </section>
+  <section class="result">
+    <h3>Available workflows</h3>
+    <ul>
+      <li><strong>Render:</strong> Upload a template JSON file to produce a printable sheet PNG.</li>
+      <li><strong>Grade:</strong> Upload a template and a scanned sheet to evaluate detected marks.</li>
+      <li><strong>Demo:</strong> Generate a ready-to-use example pack with synthetic responses.</li>
+    </ul>
+    <p>Choose an option from the navigation above to get started.</p>
+  </section>
+{% endblock %}

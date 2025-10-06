@@ -14,6 +14,7 @@ dependencies = [
   "numpy",
   "opencv-python",
   "click",
+  "Flask",
 ]
 
 [project.scripts]
@@ -21,6 +22,9 @@ omr = "omr.cli:main"
 
 [tool.setuptools.packages.find]
 include = ["omr"]
+
+[tool.setuptools.package-data]
+"omr" = ["templates/*.html"]
 
 [tool.pytest.ini_options]
 minversion = "6.0"

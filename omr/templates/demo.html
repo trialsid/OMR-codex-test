@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>Generate Demo Artefacts</h2>
+  <p>Create a modern sample template, filled sheet, and evaluation outputs for experimentation.</p>
+  {% if errors %}
+    <div class="errors">
+      <ul>
+        {% for error in errors %}<li>{{ error }}</li>{% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+  <form method="post">
+    <label for="seed">Random seed</label>
+    <input type="number" id="seed" name="seed" value="{{ form_values.seed }}" required />
+    <input type="submit" value="Generate demo" />
+  </form>
+
+  {% if result %}
+    <div class="result">
+      <h3>Demo bundle ready</h3>
+      <p>
+        Assets generated in <code>{{ result.base_dir }}</code> using seed <strong>{{ result.seed }}</strong>.
+      </p>
+      <div class="file-list">
+        {% for file in result.files %}
+          <div class="file-card">
+            <h4>{{ file.label }}</h4>
+            <p><code>{{ file.path }}</code></p>
+            <p>
+              <a href="{{ file.download_url }}">Download</a>
+              <a href="{{ file.preview_url }}" target="_blank" rel="noopener">Open</a>
+            </p>
+            {% if file.preview_url.endswith('.png') %}
+              <img class="preview-image" src="{{ file.preview_url }}" alt="{{ file.label }} preview" />
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}

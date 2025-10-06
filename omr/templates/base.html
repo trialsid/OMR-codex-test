@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{{ title or "OMR Toolkit" }}</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+        margin: 0;
+        background: #f5f6fa;
+        color: #222;
+      }
+      header {
+        background: #283593;
+        color: #fff;
+        padding: 1.5rem 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .container {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 1.5rem;
+      }
+      nav ul {
+        display: flex;
+        gap: 1rem;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      nav a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+      }
+      nav a.active {
+        text-decoration: underline;
+      }
+      main {
+        padding: 2rem 0 3rem;
+      }
+      form {
+        background: #fff;
+        padding: 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+      label {
+        display: block;
+        font-weight: 600;
+        margin-top: 1rem;
+      }
+      input[type="file"],
+      input[type="text"],
+      input[type="number"] {
+        margin-top: 0.5rem;
+        width: 100%;
+      }
+      input[type="submit"] {
+        margin-top: 1.5rem;
+        background: #3949ab;
+        color: #fff;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1rem;
+      }
+      input[type="submit"]:hover {
+        background: #303f9f;
+      }
+      .errors {
+        margin-bottom: 1rem;
+        padding: 1rem;
+        border-radius: 6px;
+        background: #ffebee;
+        color: #b71c1c;
+      }
+      .result {
+        margin-top: 2rem;
+        background: #fff;
+        padding: 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+      .file-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1rem;
+      }
+      .file-card {
+        border: 1px solid #e0e0e0;
+        border-radius: 6px;
+        padding: 1rem;
+        background: #fafafa;
+      }
+      .file-card a {
+        display: inline-block;
+        margin-right: 0.5rem;
+        color: #283593;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+      }
+      th, td {
+        border: 1px solid #ddd;
+        padding: 0.5rem 0.75rem;
+        text-align: left;
+      }
+      th {
+        background: #eef2ff;
+      }
+      .preview-image {
+        max-width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-top: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <h1>OMR Toolkit</h1>
+        <nav>
+          <ul>
+            <li><a href="{{ url_for('index') }}" class="{% if active_page == 'home' %}active{% endif %}">Dashboard</a></li>
+            <li><a href="{{ url_for('build_sheet') }}" class="{% if active_page == 'build' %}active{% endif %}">Render</a></li>
+            <li><a href="{{ url_for('grade_sheet') }}" class="{% if active_page == 'grade' %}active{% endif %}">Grade</a></li>
+            <li><a href="{{ url_for('demo_assets') }}" class="{% if active_page == 'demo' %}active{% endif %}">Demo</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <div class="container">
+        {% block content %}{% endblock %}
+      </div>
+    </main>
+  </body>
+</html>

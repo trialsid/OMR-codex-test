@@ -119,23 +119,43 @@ def _draw_question_labels(
 ) -> None:
     label_font = _load_font(size=max(12, config.mm_to_pixels(3.5, dpi)), bold=True)
     grouped = _group_bubbles_by_question(template_obj)
-    for question_id, bubbles in grouped.items():
+    question_entries = []
+    for bubbles in grouped.values():
         min_x_mm = min(b.center_x_mm - b.radius_mm for b in bubbles)
         min_y_mm = min(b.center_y_mm for b in bubbles)
-        text_x = config.mm_to_pixels(min_x_mm - 8, dpi)
-        text_y = config.mm_to_pixels(min_y_mm, dpi)
-        text_bbox = label_font.getbbox(question_id)
+        question_entries.append(
+            {
+                "min_y_mm": min_y_mm,
+                "min_x_mm": min_x_mm,
+                "bubbles": bubbles,
+            }
+        )
+
+    # Sort rows by vertical position to keep numbering consistent with layout.
+    question_entries.sort(key=lambda entry: (entry["min_y_mm"], entry["min_x_mm"]))
+
+    for index, entry in enumerate(question_entries, start=1):
+        text_x = config.mm_to_pixels(entry["min_x_mm"] - 8, dpi)
+        text_y = config.mm_to_pixels(entry["min_y_mm"], dpi)
+        label = str(index)
+        text_bbox = label_font.getbbox(label)
         text_width = text_bbox[2] - text_bbox[0]
         text_height = text_bbox[3] - text_bbox[1]
         draw.text(
             (text_x - text_width, text_y - text_height // 2),
-            question_id,
+            label,
             font=label_font,
             fill=0,
         )
 
 
-def _draw_bubbles(draw: ImageDraw.ImageDraw, template_obj: template.Template, dpi: int) -> None:
+def _draw_bubbles(
+    draw: ImageDraw.ImageDraw,
+    template_obj: template.Template,
+    dpi: int,
+    *,
+    show_option_guides: bool,
+) -> None:
     option_font = _load_font(size=max(12, config.mm_to_pixels(3, dpi)))
     stroke_width = max(1, config.mm_to_pixels(0.5, dpi))
     half_stroke = stroke_width / 2.0
@@ -155,15 +175,21 @@ def _draw_bubbles(draw: ImageDraw.ImageDraw, template_obj: template.Template, dp
         text_bbox = option_font.getbbox(text)
         text_width = text_bbox[2] - text_bbox[0]
         text_height = text_bbox[3] - text_bbox[1]
-        draw.text(
-            (cx - text_width // 2, cy - text_height // 2),
-            text,
-            font=option_font,
-            fill=0,
-        )
+        if show_option_guides:
+            draw.text(
+                (cx - text_width // 2, cy - text_height // 2),
+                text,
+                font=option_font,
+                fill=0,
+            )
 
 
-def build_sheet(template_obj: template.Template, dpi: int = 300) -> Image.Image:
+def build_sheet(
+    template_obj: template.Template,
+    dpi: int = 300,
+    *,
+    show_option_guides: bool = True,
+) -> Image.Image:
     """Render the template into a printable grayscale PIL image."""
 
     width_px, height_px = sheet_dimensions(template_obj, dpi)
@@ -172,6 +198,6 @@ def build_sheet(template_obj: template.Template, dpi: int = 300) -> Image.Image:
 
     _draw_header(draw, template_obj, width_px, dpi)
     _draw_registration_markers(draw, width_px, height_px, dpi)
-    _draw_bubbles(draw, template_obj, dpi)
+    _draw_bubbles(draw, template_obj, dpi, show_option_guides=show_option_guides)
     _draw_question_labels(draw, template_obj, dpi)
     return image

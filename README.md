@@ -10,6 +10,8 @@
    The renderer inspects the destination extension: ``.png`` writes a
    standards-compliant 8-bit grayscale PNG, while other suffixes fall back to an
    ASCII PGM stream for compatibility with minimal environments.
+   Add ``--hide-option-guides`` to omit the letter guides inside each bubble when
+   printing practice or production sheets.
 3. After collecting responses, scan the sheet at 300 DPI or higher with even
    lighting and minimal skew. Ensure bubbles are clearly filled with dark ink.
 4. Grade the scan and inspect the results:

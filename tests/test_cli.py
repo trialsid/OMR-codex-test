@@ -48,6 +48,37 @@ def test_cli_build_command(tmp_path):
     expected_size = builder.sheet_dimensions(template_obj, dpi=150)
     assert reopened.size == expected_size
 
+    expected_image = builder.build_sheet(template_obj, dpi=150)
+    assert list(reopened.getdata()) == list(expected_image.getdata())
+
+
+def test_cli_build_command_hide_option_guides(tmp_path):
+    template_path = tmp_path / "template.json"
+    output_path = tmp_path / "sheet.png"
+    _write_template(template_path)
+
+    exit_code = cli.main(
+        [
+            "build",
+            str(template_path),
+            str(output_path),
+            "--dpi",
+            "150",
+            "--hide-option-guides",
+        ]
+    )
+    assert exit_code == 0
+    assert output_path.exists()
+
+    reopened = Image.open(str(output_path))
+    template_obj = template.Template.load(str(template_path))
+    expected_image = builder.build_sheet(
+        template_obj,
+        dpi=150,
+        show_option_guides=False,
+    )
+    assert list(reopened.getdata()) == list(expected_image.getdata())
+
 
 def test_cli_grade_command(tmp_path, capsys):
     template_path = tmp_path / "template.json"

@@ -21,6 +21,11 @@ def _add_build_parser(subparsers: argparse._SubParsersAction[argparse.ArgumentPa
     parser.add_argument("template", type=Path, help="Path to the template JSON file")
     parser.add_argument("output", type=Path, help="Destination path for the rendered image")
     parser.add_argument("--dpi", type=int, default=300, help="Target DPI for rendering (default: 300)")
+    parser.add_argument(
+        "--hide-option-guides",
+        action="store_true",
+        help="Render bubbles without option letters inside",
+    )
     parser.set_defaults(func=_handle_build)
 
 
@@ -51,7 +56,11 @@ def _add_demo_parser(subparsers: argparse._SubParsersAction[argparse.ArgumentPar
 
 def _handle_build(args: argparse.Namespace) -> int:
     template_obj = template.Template.load(str(args.template))
-    image = builder.build_sheet(template_obj, dpi=args.dpi)
+    image = builder.build_sheet(
+        template_obj,
+        dpi=args.dpi,
+        show_option_guides=not args.hide_option_guides,
+    )
     image.save(str(args.output))
     return 0
 

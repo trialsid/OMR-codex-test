@@ -33,7 +33,7 @@ def create_app(output_dir: Path | None = None) -> Flask:
         return run_dir
 
     def _relative_to_output(path: Path) -> str:
-        return str(path.relative_to(resolved_output))
+        return path.relative_to(resolved_output).as_posix()
 
     def _serve_path(filename: str, *, as_attachment: bool = False) -> Response:
         from flask import send_from_directory

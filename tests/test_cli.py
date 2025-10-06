@@ -60,3 +60,19 @@ def test_cli_grade_command(tmp_path, capsys):
     captured = capsys.readouterr()
     payload = json.loads(captured.out)
     assert payload["Q1:A"] is True
+
+
+def test_cli_demo_command(tmp_path):
+    output_dir = tmp_path / "demo"
+    exit_code = cli.main(["demo", str(output_dir), "--seed", "99"])
+    assert exit_code == 0
+
+    sheet_files = list((output_dir / "sheets").glob("*.png"))
+    filled_files = list((output_dir / "filled").glob("*.png"))
+    evaluation_images = list((output_dir / "evaluations").glob("*.png"))
+    evaluation_reports = list((output_dir / "evaluations").glob("*.json"))
+
+    assert sheet_files, "expected at least one rendered sheet"
+    assert filled_files, "expected a synthetic filled sheet"
+    assert evaluation_images, "expected an evaluated overlay"
+    assert evaluation_reports, "expected a JSON evaluation report"

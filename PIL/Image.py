@@ -72,6 +72,9 @@ class Image:
         new_pixels = [row[left:right] for row in self.pixels[upper:lower]]
         return Image(mode=self.mode, width=right - left, height=lower - upper, pixels=new_pixels)
 
+    def copy(self) -> "Image":
+        return Image(mode=self.mode, width=self.width, height=self.height, pixels=[row[:] for row in self.pixels])
+
     def save(self, path: str) -> None:
         _, ext = os.path.splitext(path)
         if ext.lower() == ".png":

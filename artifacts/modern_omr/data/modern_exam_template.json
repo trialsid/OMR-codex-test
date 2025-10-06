@@ -1,0 +1,567 @@
+{
+  "bubbles": [
+    {
+      "center_x_mm": 25.0,
+      "center_y_mm": 60.0,
+      "option_id": "A",
+      "question_id": "Q01",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 37.0,
+      "center_y_mm": 60.0,
+      "option_id": "B",
+      "question_id": "Q01",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 49.0,
+      "center_y_mm": 60.0,
+      "option_id": "C",
+      "question_id": "Q01",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 61.0,
+      "center_y_mm": 60.0,
+      "option_id": "D",
+      "question_id": "Q01",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 25.0,
+      "center_y_mm": 71.5,
+      "option_id": "A",
+      "question_id": "Q02",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 37.0,
+      "center_y_mm": 71.5,
+      "option_id": "B",
+      "question_id": "Q02",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 49.0,
+      "center_y_mm": 71.5,
+      "option_id": "C",
+      "question_id": "Q02",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 61.0,
+      "center_y_mm": 71.5,
+      "option_id": "D",
+      "question_id": "Q02",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 25.0,
+      "center_y_mm": 83.0,
+      "option_id": "A",
+      "question_id": "Q03",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 37.0,
+      "center_y_mm": 83.0,
+      "option_id": "B",
+      "question_id": "Q03",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 49.0,
+      "center_y_mm": 83.0,
+      "option_id": "C",
+      "question_id": "Q03",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 61.0,
+      "center_y_mm": 83.0,
+      "option_id": "D",
+      "question_id": "Q03",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 25.0,
+      "center_y_mm": 94.5,
+      "option_id": "A",
+      "question_id": "Q04",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 37.0,
+      "center_y_mm": 94.5,
+      "option_id": "B",
+      "question_id": "Q04",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 49.0,
+      "center_y_mm": 94.5,
+      "option_id": "C",
+      "question_id": "Q04",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 61.0,
+      "center_y_mm": 94.5,
+      "option_id": "D",
+      "question_id": "Q04",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 25.0,
+      "center_y_mm": 106.0,
+      "option_id": "A",
+      "question_id": "Q05",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 37.0,
+      "center_y_mm": 106.0,
+      "option_id": "B",
+      "question_id": "Q05",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 49.0,
+      "center_y_mm": 106.0,
+      "option_id": "C",
+      "question_id": "Q05",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 61.0,
+      "center_y_mm": 106.0,
+      "option_id": "D",
+      "question_id": "Q05",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 25.0,
+      "center_y_mm": 117.5,
+      "option_id": "A",
+      "question_id": "Q06",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 37.0,
+      "center_y_mm": 117.5,
+      "option_id": "B",
+      "question_id": "Q06",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 49.0,
+      "center_y_mm": 117.5,
+      "option_id": "C",
+      "question_id": "Q06",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 61.0,
+      "center_y_mm": 117.5,
+      "option_id": "D",
+      "question_id": "Q06",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 25.0,
+      "center_y_mm": 129.0,
+      "option_id": "A",
+      "question_id": "Q07",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 37.0,
+      "center_y_mm": 129.0,
+      "option_id": "B",
+      "question_id": "Q07",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 49.0,
+      "center_y_mm": 129.0,
+      "option_id": "C",
+      "question_id": "Q07",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 61.0,
+      "center_y_mm": 129.0,
+      "option_id": "D",
+      "question_id": "Q07",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 25.0,
+      "center_y_mm": 140.5,
+      "option_id": "A",
+      "question_id": "Q08",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 37.0,
+      "center_y_mm": 140.5,
+      "option_id": "B",
+      "question_id": "Q08",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 49.0,
+      "center_y_mm": 140.5,
+      "option_id": "C",
+      "question_id": "Q08",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 61.0,
+      "center_y_mm": 140.5,
+      "option_id": "D",
+      "question_id": "Q08",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 25.0,
+      "center_y_mm": 152.0,
+      "option_id": "A",
+      "question_id": "Q09",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 37.0,
+      "center_y_mm": 152.0,
+      "option_id": "B",
+      "question_id": "Q09",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 49.0,
+      "center_y_mm": 152.0,
+      "option_id": "C",
+      "question_id": "Q09",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 61.0,
+      "center_y_mm": 152.0,
+      "option_id": "D",
+      "question_id": "Q09",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 25.0,
+      "center_y_mm": 163.5,
+      "option_id": "A",
+      "question_id": "Q10",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 37.0,
+      "center_y_mm": 163.5,
+      "option_id": "B",
+      "question_id": "Q10",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 49.0,
+      "center_y_mm": 163.5,
+      "option_id": "C",
+      "question_id": "Q10",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 61.0,
+      "center_y_mm": 163.5,
+      "option_id": "D",
+      "question_id": "Q10",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 120.0,
+      "center_y_mm": 60.0,
+      "option_id": "A",
+      "question_id": "Q11",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 132.0,
+      "center_y_mm": 60.0,
+      "option_id": "B",
+      "question_id": "Q11",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 144.0,
+      "center_y_mm": 60.0,
+      "option_id": "C",
+      "question_id": "Q11",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 156.0,
+      "center_y_mm": 60.0,
+      "option_id": "D",
+      "question_id": "Q11",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 120.0,
+      "center_y_mm": 71.5,
+      "option_id": "A",
+      "question_id": "Q12",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 132.0,
+      "center_y_mm": 71.5,
+      "option_id": "B",
+      "question_id": "Q12",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 144.0,
+      "center_y_mm": 71.5,
+      "option_id": "C",
+      "question_id": "Q12",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 156.0,
+      "center_y_mm": 71.5,
+      "option_id": "D",
+      "question_id": "Q12",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 120.0,
+      "center_y_mm": 83.0,
+      "option_id": "A",
+      "question_id": "Q13",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 132.0,
+      "center_y_mm": 83.0,
+      "option_id": "B",
+      "question_id": "Q13",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 144.0,
+      "center_y_mm": 83.0,
+      "option_id": "C",
+      "question_id": "Q13",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 156.0,
+      "center_y_mm": 83.0,
+      "option_id": "D",
+      "question_id": "Q13",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 120.0,
+      "center_y_mm": 94.5,
+      "option_id": "A",
+      "question_id": "Q14",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 132.0,
+      "center_y_mm": 94.5,
+      "option_id": "B",
+      "question_id": "Q14",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 144.0,
+      "center_y_mm": 94.5,
+      "option_id": "C",
+      "question_id": "Q14",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 156.0,
+      "center_y_mm": 94.5,
+      "option_id": "D",
+      "question_id": "Q14",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 120.0,
+      "center_y_mm": 106.0,
+      "option_id": "A",
+      "question_id": "Q15",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 132.0,
+      "center_y_mm": 106.0,
+      "option_id": "B",
+      "question_id": "Q15",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 144.0,
+      "center_y_mm": 106.0,
+      "option_id": "C",
+      "question_id": "Q15",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 156.0,
+      "center_y_mm": 106.0,
+      "option_id": "D",
+      "question_id": "Q15",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 120.0,
+      "center_y_mm": 117.5,
+      "option_id": "A",
+      "question_id": "Q16",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 132.0,
+      "center_y_mm": 117.5,
+      "option_id": "B",
+      "question_id": "Q16",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 144.0,
+      "center_y_mm": 117.5,
+      "option_id": "C",
+      "question_id": "Q16",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 156.0,
+      "center_y_mm": 117.5,
+      "option_id": "D",
+      "question_id": "Q16",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 120.0,
+      "center_y_mm": 129.0,
+      "option_id": "A",
+      "question_id": "Q17",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 132.0,
+      "center_y_mm": 129.0,
+      "option_id": "B",
+      "question_id": "Q17",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 144.0,
+      "center_y_mm": 129.0,
+      "option_id": "C",
+      "question_id": "Q17",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 156.0,
+      "center_y_mm": 129.0,
+      "option_id": "D",
+      "question_id": "Q17",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 120.0,
+      "center_y_mm": 140.5,
+      "option_id": "A",
+      "question_id": "Q18",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 132.0,
+      "center_y_mm": 140.5,
+      "option_id": "B",
+      "question_id": "Q18",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 144.0,
+      "center_y_mm": 140.5,
+      "option_id": "C",
+      "question_id": "Q18",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 156.0,
+      "center_y_mm": 140.5,
+      "option_id": "D",
+      "question_id": "Q18",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 120.0,
+      "center_y_mm": 152.0,
+      "option_id": "A",
+      "question_id": "Q19",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 132.0,
+      "center_y_mm": 152.0,
+      "option_id": "B",
+      "question_id": "Q19",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 144.0,
+      "center_y_mm": 152.0,
+      "option_id": "C",
+      "question_id": "Q19",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 156.0,
+      "center_y_mm": 152.0,
+      "option_id": "D",
+      "question_id": "Q19",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 120.0,
+      "center_y_mm": 163.5,
+      "option_id": "A",
+      "question_id": "Q20",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 132.0,
+      "center_y_mm": 163.5,
+      "option_id": "B",
+      "question_id": "Q20",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 144.0,
+      "center_y_mm": 163.5,
+      "option_id": "C",
+      "question_id": "Q20",
+      "radius_mm": 4.5
+    },
+    {
+      "center_x_mm": 156.0,
+      "center_y_mm": 163.5,
+      "option_id": "D",
+      "question_id": "Q20",
+      "radius_mm": 4.5
+    }
+  ],
+  "name": "Modern Assessment OMR",
+  "page_height_mm": 297.0,
+  "page_width_mm": 210.0
+}

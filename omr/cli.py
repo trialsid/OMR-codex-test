@@ -13,7 +13,7 @@ from typing import Iterable
 
 from PIL import Image
 
-from . import builder, evaluator, template
+from . import builder, demo, evaluator, template
 
 
 def _add_build_parser(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:
@@ -31,6 +31,22 @@ def _add_grade_parser(subparsers: argparse._SubParsersAction[argparse.ArgumentPa
     parser.add_argument("--threshold", type=float, default=0.5, help="Normalised fill threshold (default: 0.5)")
     parser.add_argument("--output", type=Path, help="Write results to a JSON file instead of stdout")
     parser.set_defaults(func=_handle_grade)
+
+
+def _add_demo_parser(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:
+    parser = subparsers.add_parser(
+        "demo",
+        help="Render a modern sheet, synthesize responses, and evaluate them",
+    )
+    parser.add_argument(
+        "output",
+        type=Path,
+        nargs="?",
+        default=Path("artifacts/modern_omr"),
+        help="Directory where demo artefacts will be written (default: artifacts/modern_omr)",
+    )
+    parser.add_argument("--seed", type=int, default=1234, help="Random seed for synthetic responses")
+    parser.set_defaults(func=_handle_demo)
 
 
 def _handle_build(args: argparse.Namespace) -> int:
@@ -55,11 +71,26 @@ def _handle_grade(args: argparse.Namespace) -> int:
     return 0
 
 
+def _handle_demo(args: argparse.Namespace) -> int:
+    artefacts = demo.generate_demo_assets(args.output, seed=args.seed)
+    payload = {
+        "base_dir": str(artefacts.base_dir),
+        "template": str(artefacts.template_path),
+        "sheet": str(artefacts.sheet_path),
+        "filled_sheet": str(artefacts.filled_sheet_path),
+        "evaluation_image": str(artefacts.evaluation_image_path),
+        "evaluation_report": str(artefacts.evaluation_report_path),
+    }
+    print(json.dumps(payload, indent=2))
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="omr", description="OMR sheet utilities")
     subparsers = parser.add_subparsers(dest="command", required=True)
     _add_build_parser(subparsers)
     _add_grade_parser(subparsers)
+    _add_demo_parser(subparsers)
     return parser
 
 

@@ -82,3 +82,46 @@ def test_demo_endpoint_generates_bundle(tmp_path: Path) -> None:
     assert b"%5C" not in response.data
     artefacts = list(tmp_path.rglob("modern_exam_template.json"))
     assert artefacts, "expected demo artefacts to be written"
+
+
+def test_designer_preview_persists_outputs(tmp_path: Path) -> None:
+    app = create_app(output_dir=tmp_path)
+    app.config.update(TESTING=True)
+    client = app.test_client()
+
+    page = client.get("/designer")
+
+    assert page.status_code == 200
+    assert b"Template Designer" in page.data
+
+    payload = {
+        "name": "Sample Designer Template",
+        "page_width_mm": 210,
+        "page_height_mm": 297,
+        "question_count": 6,
+        "options": "A,B,C",
+    }
+
+    response = client.post("/api/template/preview", json=payload)
+
+    assert response.status_code == 200
+    data = response.get_json()
+    assert data is not None
+    assert "preview_url" in data
+    assert "template_url" in data
+    assert data.get("template_json")
+
+    designer_dir = tmp_path / "designer"
+    template_files = list(designer_dir.rglob("*.json"))
+    preview_files = list(designer_dir.rglob("preview.png"))
+    assert template_files, "expected template JSON to be saved"
+    assert preview_files, "expected preview image to be saved"
+
+    saved_template = template.Template.from_json(template_files[0].read_text(encoding="utf-8"))
+    assert saved_template.name == payload["name"]
+    assert len(list(saved_template.iter_questions())) == payload["question_count"]
+
+    preview_response = client.get(data["preview_url"])
+    template_response = client.get(data["template_url"])
+    assert preview_response.status_code == 200
+    assert template_response.status_code == 200

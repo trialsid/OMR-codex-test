@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Template Designer</h2>
+<p>
+  Configure template metadata and layout options, then generate a preview without
+  needing to upload files. You can also paste bubble definitions to fine-tune
+  the layout manually.
+</p>
+<div class="designer-layout">
+  <form id="designer-form" data-preview-endpoint="{{ url_for('template_preview') }}">
+    <h3>Metadata</h3>
+    <label for="template-name">Template name</label>
+    <input type="text" id="template-name" name="name" value="Custom Assessment" required />
+
+    <div class="dimension-grid">
+      <div>
+        <label for="page-width">Page width (mm)</label>
+        <input type="number" step="0.1" id="page-width" name="page_width_mm" value="210" required />
+      </div>
+      <div>
+        <label for="page-height">Page height (mm)</label>
+        <input type="number" step="0.1" id="page-height" name="page_height_mm" value="297" required />
+      </div>
+    </div>
+
+    <h3>Layout</h3>
+    <label for="question-count">Number of questions</label>
+    <input type="number" id="question-count" name="question_count" min="1" value="20" />
+
+    <label for="options">Options (comma or newline separated)</label>
+    <input type="text" id="options" name="options" value="A,B,C,D" />
+
+    <h3>Manual bubbles (optional)</h3>
+    <p class="hint">
+      Paste either a full template JSON document or just a list of bubble
+      entries to override the automatic layout. Leave blank to use the generated
+      grid.
+    </p>
+    <textarea id="manual-bubbles" name="manual_bubbles" rows="8" placeholder='[{"question_id": "Q01", "option_id": "A", "center_x_mm": 25, "center_y_mm": 65, "radius_mm": 4.5}]'></textarea>
+
+    <input type="submit" value="Render Preview" />
+  </form>
+
+  <section class="result preview-panel">
+    <h3>Preview</h3>
+    <div id="designer-error" class="errors" style="display: none"></div>
+    <p id="designer-helper">Fill in the form and click <strong>Render Preview</strong> to generate a sheet.</p>
+    <img id="designer-preview" class="preview-image" alt="Rendered template preview" style="display: none" />
+    <div id="designer-links" class="download-links" style="display: none">
+      <a id="designer-preview-download" href="#" download>Download preview PNG</a>
+      <a id="designer-template-download" href="#" download>Download template JSON</a>
+    </div>
+    <label for="template-json-output">Template JSON</label>
+    <textarea id="template-json-output" rows="12" readonly></textarea>
+  </section>
+</div>
+
+<style>
+  .designer-layout {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    align-items: start;
+  }
+  .dimension-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
+  .preview-panel textarea {
+    width: 100%;
+    margin-top: 0.5rem;
+    font-family: monospace;
+  }
+  #designer-form textarea {
+    width: 100%;
+    font-family: monospace;
+  }
+  .download-links a {
+    margin-right: 0.75rem;
+    color: #283593;
+  }
+  .hint {
+    color: #555;
+    font-size: 0.95rem;
+  }
+  #template-json-output {
+    min-height: 200px;
+    background: #f8f9ff;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('designer-form');
+    const errorBox = document.getElementById('designer-error');
+    const helperText = document.getElementById('designer-helper');
+    const previewImage = document.getElementById('designer-preview');
+    const previewLinks = document.getElementById('designer-links');
+    const previewDownload = document.getElementById('designer-preview-download');
+    const templateDownload = document.getElementById('designer-template-download');
+    const templateOutput = document.getElementById('template-json-output');
+    const endpoint = form.dataset.previewEndpoint;
+
+    const resetFeedback = () => {
+      errorBox.style.display = 'none';
+      errorBox.textContent = '';
+      helperText.style.display = 'block';
+    };
+
+    const showError = (message) => {
+      errorBox.textContent = message;
+      errorBox.style.display = 'block';
+      helperText.style.display = 'none';
+      previewImage.style.display = 'none';
+      previewLinks.style.display = 'none';
+      templateOutput.value = '';
+    };
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      resetFeedback();
+
+      const formData = new FormData(form);
+      const payload = {
+        name: formData.get('name')?.toString().trim() || 'Custom Template',
+        page_width_mm: formData.get('page_width_mm') ? Number(formData.get('page_width_mm')) : undefined,
+        page_height_mm: formData.get('page_height_mm') ? Number(formData.get('page_height_mm')) : undefined,
+        question_count: formData.get('question_count') ? Number(formData.get('question_count')) : undefined,
+        options: formData.get('options')?.toString() || undefined,
+      };
+
+      const manual = formData.get('manual_bubbles');
+      if (manual && manual.toString().trim().length > 0) {
+        payload.manual_bubbles = manual.toString();
+      }
+
+      try {
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload),
+        });
+
+        const data = await response.json();
+        if (!response.ok) {
+          const message = data && data.error ? data.error : 'Failed to render preview.';
+          showError(message);
+          return;
+        }
+
+        helperText.style.display = 'none';
+        if (data.preview_url) {
+          previewImage.src = `${data.preview_url}?t=${Date.now()}`;
+          previewImage.style.display = 'block';
+        }
+        if (data.preview_download_url && data.template_download_url) {
+          previewDownload.href = data.preview_download_url;
+          templateDownload.href = data.template_download_url;
+          previewLinks.style.display = 'block';
+        }
+        if (data.template_json) {
+          try {
+            const parsed = JSON.parse(data.template_json);
+            templateOutput.value = JSON.stringify(parsed, null, 2);
+          } catch (err) {
+            templateOutput.value = data.template_json;
+          }
+        } else {
+          templateOutput.value = '';
+        }
+      } catch (error) {
+        showError('Unexpected error generating preview.');
+      }
+    });
+  });
+</script>
+{% endblock %}

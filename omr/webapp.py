@@ -7,7 +7,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, Iterable, List
 
-from flask import Flask, Response, render_template, request, url_for
+from flask import Flask, Response, jsonify, render_template, request, url_for
 from PIL import Image
 from werkzeug.datastructures import FileStorage
 from werkzeug.utils import secure_filename
@@ -63,11 +63,165 @@ def create_app(output_dir: Path | None = None) -> Flask:
             summary.append({"question": question, "options": filled})
         return summary
 
+    def _normalise_options(raw: object) -> List[str]:
+        options: List[str]
+        if isinstance(raw, list):
+            options = [str(option).strip() for option in raw]
+        elif isinstance(raw, str):
+            separators = [",", "\n", "\r"]
+            cleaned = raw
+            for sep in separators:
+                cleaned = cleaned.replace(sep, ",")
+            options = [part.strip() for part in cleaned.split(",")]
+        else:
+            options = []
+        filtered = [option for option in options if option]
+        if not filtered:
+            return ["A", "B", "C", "D"]
+        return filtered
+
+    def _auto_template_from_config(
+        *,
+        name: str,
+        page_width_mm: float,
+        page_height_mm: float,
+        question_count: int,
+        options: List[str],
+    ) -> template.Template:
+        base_template = demo.create_modern_template(
+            num_questions=question_count, options=options
+        )
+        base_template.name = name or base_template.name
+        base_template.page_width_mm = page_width_mm
+        base_template.page_height_mm = page_height_mm
+        return base_template
+
+    def _template_from_manual_payload(
+        *,
+        name: str,
+        page_width_mm: float,
+        page_height_mm: float,
+        payload: object,
+    ) -> template.Template:
+        if isinstance(payload, str):
+            try:
+                payload = json.loads(payload)
+            except json.JSONDecodeError as exc:
+                raise ValueError(f"Manual bubble JSON is invalid: {exc}") from exc
+
+        if isinstance(payload, dict):
+            try:
+                manual_template = template.Template.from_dict(payload)
+            except Exception as exc:  # pragma: no cover - surfaced to user
+                raise ValueError(f"Manual template data is invalid: {exc}") from exc
+        elif isinstance(payload, list):
+            try:
+                bubbles = [template.Bubble.from_dict(entry) for entry in payload]
+            except Exception as exc:  # pragma: no cover - surfaced to user
+                raise ValueError(f"Manual bubble entry is invalid: {exc}") from exc
+            manual_template = template.Template(
+                name=name or "Custom Template",
+                page_width_mm=page_width_mm,
+                page_height_mm=page_height_mm,
+                bubbles=bubbles,
+            )
+        else:
+            raise ValueError("Manual bubble data must be a JSON list or object.")
+
+        if name:
+            manual_template.name = name
+        manual_template.page_width_mm = page_width_mm
+        manual_template.page_height_mm = page_height_mm
+        return manual_template
+
     @app.route("/")
     def index() -> str:
         return render_template(
             "index.html", title="OMR Toolkit Dashboard", active_page="home"
         )
+
+    @app.route("/designer")
+    def designer() -> str:
+        return render_template(
+            "designer.html",
+            title="Template Designer",
+            active_page="designer",
+        )
+
+    @app.route("/api/template/preview", methods=["POST"])
+    def template_preview() -> Response:
+        payload = request.get_json(silent=True) or {}
+        if not isinstance(payload, dict):
+            return jsonify({"error": "JSON object expected."}), 400
+
+        name = str(payload.get("name") or "Custom Template")
+        try:
+            page_width_mm = float(payload.get("page_width_mm", 210.0))
+            page_height_mm = float(payload.get("page_height_mm", 297.0))
+        except (TypeError, ValueError) as exc:
+            return jsonify({"error": f"Page dimensions must be numbers: {exc}"}), 400
+
+        manual_payload = payload.get("manual_bubbles")
+
+        if manual_payload:
+            try:
+                tmpl = _template_from_manual_payload(
+                    name=name,
+                    page_width_mm=page_width_mm,
+                    page_height_mm=page_height_mm,
+                    payload=manual_payload,
+                )
+            except ValueError as exc:
+                return jsonify({"error": str(exc)}), 400
+        else:
+            try:
+                question_count = int(payload.get("question_count", 20))
+            except (TypeError, ValueError):
+                return jsonify({"error": "Question count must be an integer."}), 400
+            if question_count <= 0:
+                return jsonify({"error": "Question count must be positive."}), 400
+            options = _normalise_options(payload.get("options"))
+            tmpl = _auto_template_from_config(
+                name=name,
+                page_width_mm=page_width_mm,
+                page_height_mm=page_height_mm,
+                question_count=question_count,
+                options=options,
+            )
+
+        try:
+            tmpl.ensure_unique_bubbles()
+        except ValueError as exc:  # pragma: no cover - surfaced to user
+            return jsonify({"error": str(exc)}), 400
+
+        try:
+            image = builder.build_sheet(tmpl, dpi=300)
+        except Exception as exc:  # pragma: no cover - surfaced to user
+            return jsonify({"error": f"Failed to build preview: {exc}"}), 500
+
+        run_dir = _create_run_dir("designer")
+        template_filename = secure_filename(name) or "template"
+        template_path = run_dir / f"{template_filename}.json"
+        template_json = tmpl.to_json()
+        template_path.write_text(template_json, encoding="utf-8")
+
+        preview_path = run_dir / "preview.png"
+        try:
+            image.save(preview_path)
+        finally:
+            image.close()
+
+        template_rel = _relative_to_output(template_path)
+        preview_rel = _relative_to_output(preview_path)
+
+        response_payload = {
+            "template_json": template_json,
+            "template_url": url_for("serve_file", filename=template_rel),
+            "template_download_url": url_for("download_file", filename=template_rel),
+            "preview_url": url_for("serve_file", filename=preview_rel),
+            "preview_download_url": url_for("download_file", filename=preview_rel),
+        }
+        return jsonify(response_payload)
 
     @app.route("/build", methods=["GET", "POST"])
     def build_sheet() -> str:

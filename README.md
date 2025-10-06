@@ -22,6 +22,25 @@
 High-quality scans should maintain bubble edges without heavy compression to
 ensure the evaluator can distinguish filled and unfilled bubbles.
 
+## Web dashboard
+
+A browser-based dashboard is available for non-technical users who prefer
+interacting with the toolkit visually. Install the dependencies and launch the
+server with:
+
+```bash
+python -m omr.webapp
+```
+
+The application exposes three workflows from a single page:
+
+- **Render** – upload a template JSON file, pick a DPI, and download the rendered sheet.
+- **Grade** – upload a template and scanned response to see detected answers and save the JSON summary.
+- **Demo** – produce the sample template, filled sheet, and evaluation overlay with one click.
+
+Generated artefacts are written under `artifacts/webapp/` and are available via
+download links directly in the UI.
+
 ## Modern demo workflow
 
 To explore the full pipeline end-to-end, including a modern styled sheet,

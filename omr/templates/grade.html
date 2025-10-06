@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>Grade a Scanned Sheet</h2>
+  <p>Upload the template and a scanned sheet image to evaluate which bubbles were marked.</p>
+  {% if errors %}
+    <div class="errors">
+      <ul>
+        {% for error in errors %}<li>{{ error }}</li>{% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+  <form method="post" enctype="multipart/form-data">
+    <label for="template_file">Template JSON</label>
+    <input type="file" id="template_file" name="template_file" accept="application/json" required />
+
+    <label for="image_file">Scanned sheet image</label>
+    <input type="file" id="image_file" name="image_file" accept="image/*" required />
+
+    <label for="threshold">Fill threshold (0-1)</label>
+    <input type="text" id="threshold" name="threshold" value="{{ form_values.threshold }}" required />
+
+    <input type="submit" value="Evaluate" />
+  </form>
+
+  {% if result %}
+    <div class="result">
+      <h3>Evaluation summary</h3>
+      <p>
+        Template <strong>{{ result.template_name }}</strong> processed with a threshold of
+        <strong>{{ result.threshold }}</strong>.
+      </p>
+      <p>
+        Detected marks: <strong>{{ result.total_marked }}</strong> of
+        <strong>{{ result.total_bubbles }}</strong> bubbles.
+      </p>
+      <p>
+        <a href="{{ result.download_url }}">Download JSON results</a>
+        <a href="{{ result.raw_url }}" target="_blank" rel="noopener">View JSON</a>
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Question</th>
+            <th>Detected selections</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for entry in result.summary %}
+            <tr>
+              <td>{{ entry.question }}</td>
+              <td>
+                {% if entry.options %}
+                  {{ entry.options | join(', ') }}
+                {% else %}
+                  <em>No marks detected</em>
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endif %}
+{% endblock %}

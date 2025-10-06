@@ -6,6 +6,7 @@ values into pixels using the requested DPI.
 """
 from __future__ import annotations
 
+import math
 from typing import Dict, Iterable, Tuple
 
 from PIL import Image, ImageDraw, ImageFont
@@ -136,10 +137,17 @@ def _draw_question_labels(
 
 def _draw_bubbles(draw: ImageDraw.ImageDraw, template_obj: template.Template, dpi: int) -> None:
     option_font = _load_font(size=max(12, config.mm_to_pixels(3, dpi)))
+    stroke_width = max(1, config.mm_to_pixels(0.5, dpi))
+    half_stroke = stroke_width / 2.0
     for bubble in template_obj.bubbles:
         bbox = bubble_bounds_px(bubble, dpi)
-        radius = (bbox[2] - bbox[0]) // 2
-        draw.ellipse(bbox, outline=0, width=max(1, radius // 4))
+        padded_bbox = (
+            math.floor(bbox[0] - half_stroke),
+            math.floor(bbox[1] - half_stroke),
+            math.ceil(bbox[2] + half_stroke),
+            math.ceil(bbox[3] + half_stroke),
+        )
+        draw.ellipse(padded_bbox, outline=0, width=stroke_width)
 
         cx = (bbox[0] + bbox[2]) // 2
         cy = (bbox[1] + bbox[3]) // 2
